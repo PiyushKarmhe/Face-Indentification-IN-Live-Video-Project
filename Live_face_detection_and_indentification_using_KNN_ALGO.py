@@ -47,7 +47,7 @@ if ch=='Y' or ch=='y':
     print("How u want to create ur Data base?")
     print("1.U have saved images but not of that specification?")
     print("2.U want take an image now?")
-    choice=input("Give ANS : ")
+    choice=int(input("Give ANS : "))
     if choice==1:
         exec(open('dataset_from_img.py').read())
     else:
