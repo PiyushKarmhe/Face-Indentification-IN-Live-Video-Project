@@ -5,18 +5,12 @@ Created on Thu Dec  2 23:12:52 2021
 @author: PIYUSH KARMHE
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Dec  2 22:00:07 2021
-
-@author: PIYUSH KARMHE
-"""
-
 import cv2
 import os
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from img_numpy_array import*
+dirname = os.path.dirname(__file__)
 
 image_dir='temp_dir'
 label_file='val.txt'
@@ -31,16 +25,17 @@ compress=True
 output_file='dataset1.npz'
 
 def pic():
-    exec(open('dataset_from_img.py').read())
+    filename = os.path.join(dirname, './dataset_from_img.py')
+    exec(open(filename).read())
 
 def cam():
-    exec(open('dataset_from_cam.py').read())
+    filename = os.path.join(dirname, './dataset_from_cam.py')
+    exec(open(filename).read())
     
-
-newpath = r'C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\temp_dir' 
-if not os.path.exists(newpath):
-    os.makedirs(newpath)
-path="C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\dataset.npz"  
+filename = os.path.join(dirname, './temp_dir')
+if not os.path.exists(filename):
+    os.makedirs(filename)
+path = os.path.join(dirname, './dataset.npz')  
 f=open("val.txt","w+")
 f.write("saved_img-resized.JPG 0")  
 f.close()
@@ -60,7 +55,8 @@ if ch=='Y' or ch=='y':
     else:
         cam()
 else:
-    path=input("Give Path for eg C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\dataset.npz here dataset.npz is fixed change path before that only : ")
+    path=input("Give Relative Path here : ")
+    path = os.path.join(dirname, path) 
 train_f = np.load(path)
 train_x = train_f['x']
 train_y = train_f['y']
@@ -99,8 +95,8 @@ while True:
     img_ = crop_img
     gray = cv2.cvtColor(img_, cv2.COLOR_BGR2GRAY)
     img_ = cv2.resize(img_,(224,224))
-    path="C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\temp_dir\\"
-    img_resized = cv2.imwrite(os.path.join(path,'saved_img-resized.jpg'), img=img_)
+    path = os.path.join(dirname, './temp_dir')
+    img_resized = cv2.imwrite(os.path.join(path,'./saved_img-resized.jpg'), img=img_)
     imgknn = images_to_npy(image_dir,label_file,classes,input_height,input_width,input_chans,resize,normalize,one_hot,compress,output_file)
     tempimg=imgknn[0]
     tempimg=tempimg.reshape(1,150528)

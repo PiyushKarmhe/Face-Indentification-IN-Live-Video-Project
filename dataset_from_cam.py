@@ -6,17 +6,19 @@ Created on Fri Dec  3 20:55:21 2021
 """
 import cv2
 import os
+dirname = os.path.dirname(__file__)
 
 # Load the cascade
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+filename = os.path.join(dirname, './haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(filename)
 
 # To capture video from webcam. 
 cap = cv2.VideoCapture(0)
 # To use a video file as input 
 
-newpath = r'C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\img_dir' 
-if not os.path.exists(newpath):
-    os.makedirs(newpath)
+filename = os.path.join(dirname, './img_dir')
+if not os.path.exists(filename):
+    os.makedirs(filename)
 f=open("val2.txt","w+")
 lable='3'
 
@@ -61,8 +63,8 @@ for i in range(20):
             print("Resizing image to 224X224 scale...")
             img_ = cv2.resize(gray,(224,224))
             print("Resized...")
-            paths="C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\img_dir\\"
-            img_resized = cv2.imwrite(os.path.join(paths,"saved_img-resized"+str(i)+".jpg"), img=img_)
+            filename = os.path.join(dirname, './img_dir')
+            img_resized = cv2.imwrite(os.path.join(filename,"saved_img-resized"+str(i)+".jpg"), img=img_)
             #img = cv2.imread('saved_img-resized"+str(i)+".jpg", cv2.IMREAD_ANYCOLOR)
             f.write("saved_img-resized"+str(i)+".jpg"+" "+lable+"\n")
             print("Image"+str(i+1)+" saved!")
@@ -80,5 +82,6 @@ f.close()
 # Release the VideoCapture object
 cap.release()
 cv2.destroyAllWindows()
-exec(open('initiator.py').read())
+filename = os.path.join(dirname, './initiator.py')
+exec(open(filename).read())
 print("Successfully created ur database")

@@ -6,14 +6,16 @@ Created on Fri Dec  3 19:27:40 2021
 """
 import cv2
 import os
+dirname = os.path.dirname(__file__)
 
 # Load the cascade
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+filename = os.path.join(dirname, './haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(filename)
 print("First copy all the images into us folder which has all the python files")
 
-newpath = r'C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\img_dir' 
-if not os.path.exists(newpath):
-    os.makedirs(newpath)
+filename = os.path.join(dirname, './img_dir')
+if not os.path.exists(filename):
+    os.makedirs(filename)
 f=open("val2.txt","w+")
 # Read the input image
 lable='3'
@@ -51,7 +53,8 @@ for i in range(20):
     img_ = cv2.resize(gray,(224,224))
     print("Resized...")
     path="C:\\Users\\PIYUSH KARMHE\\Documents\\C++ codes\\img_dir\\"
-    img_resized = cv2.imwrite(os.path.join(path,"saved_img-resized"+str(i)+".jpg"), img=img_)
+    filename = os.path.join(dirname, './img_dir')
+    img_resized = cv2.imwrite(os.path.join(filename,"./saved_img-resized"+str(i)+".jpg"), img=img_)
     img = cv2.imread("saved_img-resized"+str(i)+".jpg", cv2.IMREAD_ANYCOLOR)
     f.write("saved_img-resized"+str(i)+".jpg"+" "+lable+"\n")
     print("Image"+str(i+1)+" saved!")
