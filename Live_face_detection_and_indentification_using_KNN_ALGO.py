@@ -12,7 +12,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from img_numpy_array import*
 dirname = os.path.dirname(__file__)
 
-image_dir='temp_dir'
+image_dir=os.path.join(dirname, 'temp_dir')
 label_file='val.txt'
 classes=1000
 input_height=224
@@ -35,9 +35,9 @@ def cam():
 filename = os.path.join(dirname, './temp_dir')
 if not os.path.exists(filename):
     os.makedirs(filename)
-path = os.path.join(dirname, './dataset.npz')  
+path = os.path.join(dirname, './dataset1.npz')  
 f=open("val.txt","w+")
-f.write("saved_img-resized.JPG 0")  
+f.write("saved_img-resized.jpg 0")  
 f.close()
 print("DO u have ur dataset?")
 print("Total images : 20")

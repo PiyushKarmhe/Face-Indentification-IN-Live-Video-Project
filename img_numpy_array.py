@@ -67,6 +67,7 @@ def images_to_npy(image_dir,label_file,classes,input_height,input_width,input_ch
     image_name,label = listImages[i].split()
 
     # open image to numpy array and switch to RGB from BGR
+    print("Path : ",os.path.join(image_dir,image_name))
     img = cv2.imread(os.path.join(image_dir,image_name))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
